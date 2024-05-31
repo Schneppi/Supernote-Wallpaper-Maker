@@ -65,6 +65,41 @@ Protected Module Module_Extensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function PrepareForExport(p As Picture, X As Integer, Y As Integer) As Picture
+		  If p = Nil Then Return Nil
+		  
+		  Var Preview As New Picture(X, Y)
+		  
+		  // -------------------------------------------------------
+		  // scale picture keeping the ratio between x and y
+		  // -------------------------------------------------------
+		  Var PicWidth, PicHeight, ScaleWidth, ScaleHeight As Int16
+		  Var RatioX, RatioY,PosX, PosY As Double
+		  
+		  PicWidth = p.Width
+		  PicHeight = p.Height
+		  RatioX = X / PicWidth
+		  RatioY = Y / PicHeight
+		  
+		  If RatioX < RatioY Then
+		    ScaleWidth = PicWidth * RatioY
+		    ScaleHeight = PicHeight * RatioY
+		    PosX = ((X - ScaleWidth)/2) + 10
+		    PosY = 10
+		  Else
+		    ScaleWidth = PicWidth * RatioX
+		    ScaleHeight = PicHeight * RatioX
+		    PosX = 10
+		    PosY = ((Y - ScaleHeight)/2) + 10
+		  End If
+		  
+		  Preview.Graphics.DrawPicture(p,PosX, PosY, ScaleWidth - 20, ScaleHeight - 20, 0, 0, PicWidth, PicHeight)
+		  
+		  Return Preview
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Set_BrightnessAndContrast(p As Picture, Brightness As Integer, Contrast As Integer) As Picture
 		  If p = Nil Then Return Nil
 		  

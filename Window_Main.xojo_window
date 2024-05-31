@@ -241,15 +241,12 @@ Begin DesktopWindow Window_Main
       Width           =   72
    End
    Begin Thread Thread_RefreshPreview
-      DebugIdentifier =   ""
       Index           =   -2147483648
       LockedInPosition=   False
       Priority        =   2
       Scope           =   2
       StackSize       =   0
       TabPanelIndex   =   0
-      ThreadID        =   0
-      ThreadState     =   0
    End
    Begin DesktopLabel Label_GrayscaleType
       AllowAutoDeactivate=   True
@@ -462,7 +459,7 @@ End
 		      
 		      Var ResizedPicture As New Picture(1404,1872)
 		      Var ExportPicture As Picture
-		      ResizedPicture.Graphics.DrawPicture(OriginalImage, 0, 0, 1404, 1872, 0, 0, OriginalImage.Width, OriginalImage.Height)
+		      ResizedPicture = PrepareForExport(OriginalImage, ResizedPicture.Width, ResizedPicture.Height)
 		      ExportPicture = Set_BrightnessAndContrast(ResizedPicture, Slider_Brightness.Value, Slider_Contrast.Value)
 		      ExportPicture = Set_Grayscale_Average(ExportPicture)
 		      
