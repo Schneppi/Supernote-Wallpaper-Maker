@@ -3,7 +3,8 @@ Easily convert JPEG, BMP or PNG images into grayscale images, in the perfect for
 
 ![The Application Main Window on macOS](https://github.com/Schneppi/Supernote-Wallpaper-Maker/blob/main/Screenshots/main_on_macos.png)
 
-**This Xojo Project needs the [PictureEffectsRaw](https://www.einhugur.com/Html/PictureEffectsRaw/index.html) Plugin by [Einhugur](https://www.einhugur.com/)!**
+**To build this Project you need the [PictureEffectsRaw](https://www.einhugur.com/Html/PictureEffectsRaw/index.html) Plugin by [Einhugur](https://www.einhugur.com/)!**
+**The release binaries do not require the plugin! They work without additional software.**
 
 The Supernote A6X2 from Ratta is a really great digital notebook and a lot more.
 As this device can be quickly integrated into everyday life and becomes an indispensable companion, I quickly felt the need for more personalization.
