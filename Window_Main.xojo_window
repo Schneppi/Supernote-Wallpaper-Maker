@@ -70,7 +70,7 @@ Begin DesktopWindow Window_Main
       LockTop         =   False
       MacButtonStyle  =   0
       Scope           =   2
-      TabIndex        =   5
+      TabIndex        =   10
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
@@ -87,7 +87,7 @@ Begin DesktopWindow Window_Main
       FontName        =   "System"
       FontSize        =   0.0
       FontUnit        =   0
-      Height          =   168
+      Height          =   117
       Index           =   -2147483648
       Italic          =   False
       Left            =   266
@@ -163,7 +163,7 @@ Begin DesktopWindow Window_Main
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   3
+      TabIndex        =   6
       TabPanelIndex   =   0
       TabStop         =   False
       Text            =   "Brightness:"
@@ -194,7 +194,7 @@ Begin DesktopWindow Window_Main
       MinimumValue    =   -600
       PageStep        =   100
       Scope           =   2
-      TabIndex        =   8
+      TabIndex        =   9
       TabPanelIndex   =   0
       TabStop         =   True
       TickMarkStyle   =   0
@@ -227,7 +227,7 @@ Begin DesktopWindow Window_Main
       Multiline       =   False
       Scope           =   2
       Selectable      =   False
-      TabIndex        =   4
+      TabIndex        =   8
       TabPanelIndex   =   0
       TabStop         =   False
       Text            =   "Contrast:"
@@ -274,7 +274,7 @@ Begin DesktopWindow Window_Main
       TextAlignment   =   3
       TextColor       =   &c000000
       Tooltip         =   ""
-      Top             =   215
+      Top             =   177
       Transparent     =   False
       Underline       =   False
       Visible         =   True
@@ -299,15 +299,73 @@ Begin DesktopWindow Window_Main
       LockTop         =   False
       Scope           =   2
       SelectedRowIndex=   0
-      TabIndex        =   6
+      TabIndex        =   3
       TabPanelIndex   =   0
       TabStop         =   True
       Tooltip         =   ""
-      Top             =   215
+      Top             =   177
       Transparent     =   False
       Underline       =   False
       Visible         =   True
       Width           =   150
+   End
+   Begin DesktopCheckBox CheckBox_Invert
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Invert"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   398
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   2
+      TabIndex        =   5
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   217
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   102
+   End
+   Begin DesktopCheckBox CheckBox_ContrastStretch
+      AllowAutoDeactivate=   True
+      Bold            =   False
+      Caption         =   "Contrast Stretch"
+      Enabled         =   True
+      FontName        =   "System"
+      FontSize        =   0.0
+      FontUnit        =   0
+      Height          =   20
+      Index           =   -2147483648
+      Italic          =   False
+      Left            =   266
+      LockBottom      =   True
+      LockedInPosition=   False
+      LockLeft        =   False
+      LockRight       =   True
+      LockTop         =   False
+      Scope           =   2
+      TabIndex        =   4
+      TabPanelIndex   =   0
+      TabStop         =   True
+      Tooltip         =   ""
+      Top             =   217
+      Transparent     =   False
+      Underline       =   False
+      Visible         =   True
+      VisualState     =   0
+      Width           =   120
    End
 End
 #tag EndDesktopWindow
@@ -497,8 +555,13 @@ End
 		  #Pragma unused data
 		  
 		  Var PreviewImage As Picture = FitIn_Canvas(OriginalImage, Canvas_Preview)
+		  
+		  If CheckBox_ContrastStretch.Value Then PreviewImage = Set_ContrastStretch(PreviewImage)
+		  
 		  PreviewImage = Set_BrightnessAndContrast(PreviewImage, Slider_Brightness.Value, Slider_Contrast.Value)
 		  PreviewImage = Set_Grayscale_Average(PreviewImage, PopupMenu_Grayscaling.SelectedRowText.ReplaceAll(" ",""))
+		  
+		  If CheckBox_Invert.Value Then PreviewImage = Set_Invert(PreviewImage)
 		  
 		  Canvas_Preview.Backdrop = PreviewImage
 		End Sub
@@ -507,6 +570,20 @@ End
 #tag Events PopupMenu_Grayscaling
 	#tag Event
 		Sub SelectionChanged(item As DesktopMenuItem)
+		  If Thread_RefreshPreview.ThreadState = Thread.ThreadStates.NotRunning Then Thread_RefreshPreview.Start
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox_Invert
+	#tag Event
+		Sub ValueChanged()
+		  If Thread_RefreshPreview.ThreadState = Thread.ThreadStates.NotRunning Then Thread_RefreshPreview.Start
+		End Sub
+	#tag EndEvent
+#tag EndEvents
+#tag Events CheckBox_ContrastStretch
+	#tag Event
+		Sub ValueChanged()
 		  If Thread_RefreshPreview.ThreadState = Thread.ThreadStates.NotRunning Then Thread_RefreshPreview.Start
 		End Sub
 	#tag EndEvent

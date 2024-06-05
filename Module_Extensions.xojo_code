@@ -114,6 +114,20 @@ Protected Module Module_Extensions
 	#tag EndMethod
 
 	#tag Method, Flags = &h0
+		Function Set_ContrastStretch(p As Picture) As Picture
+		  Var result As RawBitmap
+		  Var effect As New ContrastStretchEffectRaw
+		  
+		  Var RawImage As RawBitmap = RawBitmapConverter.FromPicture(p)
+		  
+		  result = effect.Apply(RawImage)
+		  
+		  p = RawBitmapConverter.ToPicture(result)
+		  Return p
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
 		Function Set_Grayscale_Average(p As Picture, Optional GrayscaleType As String) As Picture
 		  Var result As RawBitmap
 		  Var effect As New GrayscaleEffectRaw
@@ -140,6 +154,20 @@ Protected Module Module_Extensions
 		    result = effect.Apply(RawImage,GrayscaleEffectRaw.AVERAGE)
 		    
 		  End Select
+		  
+		  p = RawBitmapConverter.ToPicture(result)
+		  Return p
+		End Function
+	#tag EndMethod
+
+	#tag Method, Flags = &h0
+		Function Set_Invert(p As Picture) As Picture
+		  Var result As RawBitmap
+		  Var effect As New InvertEffectRaw
+		  
+		  Var RawImage As RawBitmap = RawBitmapConverter.FromPicture(p)
+		  
+		  result = effect.Apply(RawImage)
 		  
 		  p = RawBitmapConverter.ToPicture(result)
 		  Return p
