@@ -241,12 +241,15 @@ Begin DesktopWindow Window_Main
       Width           =   72
    End
    Begin Thread Thread_RefreshPreview
+      DebugIdentifier =   ""
       Index           =   -2147483648
       LockedInPosition=   False
       Priority        =   2
       Scope           =   2
       StackSize       =   0
       TabPanelIndex   =   0
+      ThreadID        =   0
+      ThreadState     =   0
    End
    Begin DesktopLabel Label_GrayscaleType
       AllowAutoDeactivate=   True
@@ -320,7 +323,7 @@ Begin DesktopWindow Window_Main
       Height          =   20
       Index           =   -2147483648
       Italic          =   False
-      Left            =   398
+      Left            =   420
       LockBottom      =   True
       LockedInPosition=   False
       LockLeft        =   False
@@ -334,9 +337,10 @@ Begin DesktopWindow Window_Main
       Top             =   217
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   0
-      Width           =   102
+      Width           =   80
    End
    Begin DesktopCheckBox CheckBox_ContrastStretch
       AllowAutoDeactivate=   True
@@ -363,9 +367,10 @@ Begin DesktopWindow Window_Main
       Top             =   217
       Transparent     =   False
       Underline       =   False
+      Value           =   False
       Visible         =   True
       VisualState     =   0
-      Width           =   120
+      Width           =   142
    End
 End
 #tag EndDesktopWindow
